@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 import ClientOnly from "../components/ClientOnly";
 import { client } from "../apollo-client";
 import { useUser } from "@auth0/nextjs-auth0";
+import Pricing from "../components/Pricing";
 
 
 export default function Home() {
@@ -12,6 +13,29 @@ export default function Home() {
    if (isLoading) return <div>Loading...</div>;
    if (error) return <div>{error.message}</div>;
 
+   if (!user) {
+
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Home</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <Pricing />
+        <ClientOnly>
+
+        </ClientOnly>
+      </main>
+
+
+    </div>
+
+  );
+}
+
+else {
   return (
     <div className={styles.container}>
       <Head>
@@ -27,8 +51,8 @@ export default function Home() {
 
         </ClientOnly>
       </main>
-
-
     </div>
+
   );
+}
 }
